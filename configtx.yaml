@@ -1,0 +1,80 @@
+---
+################################################################################
+#
+#   Profiles
+#
+#   - Different configuration profiles may be encoded here to be specified
+#   as parameters to the configtxgen tool. The profiles which specify consortiums
+#   are to be used for generating the orderer genesis block.  With the correct
+#   consortium members defined in the orderer genesis block, channel creation
+#   requests may be generated with only the org member names and a consortium name
+#
+################################################################################
+Profiles:
+  ThreeOrgsGenesis:
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+      - *OrdererOrg
+    Consortiums:
+      MedicalConsortium:
+        Organizations:
+        - *MedicalCenterOrg
+        - *InsuranceOrg
+        - *PharmacyOrg
+
+
+  ThreeOrgsChannel:
+    Consortium: MedicalConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+      - *MedicalCenterOrg
+      - *InsuranceOrg
+      - *PharmacyOrg
+
+Organizations:
+- &OrdererOrg
+  Name: OrdererOrg
+  ID: OrdererMSP
+  MSPDir: cli/peers/ordererOrganizations/orderer-org/msp
+
+- &MedicalCenterOrg
+  Name: MedicalCenterOrg
+  ID: OrdererMSP
+  MSPDir: cli/peers/peerOrganizations/medicalcenter-org/msp
+  AnchorPeers:
+  - Host: medicalcenter-peer
+    Port: 7051
+
+- &InsuranceOrg
+  Name: InsuranceOrg
+  ID: InsuranceMSP
+  MSPDir: cli/peers/peerOrganizations/insurance-org/msp
+  AnchorPeers:
+  - Host: insurance-peer
+    Port: 7051
+
+- &PharmacyOrg
+  Name: PharmacyOrg
+  ID: PharmacyMSP
+  MSPDir: cli/peers/peerOrganizations/pharmacy-org/msp
+  AnchorPeers:
+  - Host: pharmacy-peer
+    Port: 7051
+
+
+
+Orderer: &OrdererDefaults
+  OrdererType: solo
+  Addresses:
+  - orderer0:7050
+  BatchTimeout: 2s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+  Organizations:
+
+Application: &ApplicationDefaults
+  Organizations:

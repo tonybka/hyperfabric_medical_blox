@@ -1,4 +1,4 @@
-## Blockchain for medical and healthcare
+# Blockchain for medical and healthcare
 
 Project developed base on **Hyperledger Fabric** blockchain framework
 
@@ -24,10 +24,18 @@ Project developed base on **Hyperledger Fabric** blockchain framework
 2. **Medical Center**
 2. **Insurance**
 ---
-### Peers
+## Development
+### Create network components:
+* */configs/crypto-config.yaml*
+
+**OrdererOrgs**: Organization to manage orderer nodes
+
+**PeerOrgs**: Organization to manage peer nodes
+
+* Create *configtx.yaml*
 
 ---
 
-### License
+## License
 
 Apache License
