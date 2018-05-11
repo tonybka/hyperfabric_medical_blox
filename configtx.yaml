@@ -40,24 +40,24 @@ Organizations:
   MSPDir: cli/peers/ordererOrganizations/orderer-org/msp
 
 - &MedicalCenterOrg
-  Name: MedicalCenterOrg
-  ID: OrdererMSP
+  Name: MedicalCenterOrgMSP
+  ID: MedicalCenterOrgMSP
   MSPDir: cli/peers/peerOrganizations/medicalcenter-org/msp
   AnchorPeers:
   - Host: medicalcenter-peer
     Port: 7051
 
 - &InsuranceOrg
-  Name: InsuranceOrg
-  ID: InsuranceMSP
+  Name: InsuranceOrgMSP
+  ID: InsuranceOrgMSP
   MSPDir: cli/peers/peerOrganizations/insurance-org/msp
   AnchorPeers:
   - Host: insurance-peer
     Port: 7051
 
 - &PharmacyOrg
-  Name: PharmacyOrg
-  ID: PharmacyMSP
+  Name: PharmacyOrgMSP
+  ID: PharmacyOrgMSP
   MSPDir: cli/peers/peerOrganizations/pharmacy-org/msp
   AnchorPeers:
   - Host: pharmacy-peer

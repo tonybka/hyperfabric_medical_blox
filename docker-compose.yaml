@@ -1,4 +1,27 @@
 version: '2'
 
 services:
-  
+  medicalcenter-ca:
+    container_name: medicalcenter-ca
+    extends:
+      file: ./ca-base.yaml
+      service: ca-base
+    image: medicalcenter-ca
+    ports:
+    - 7054:7054
+  insurance-ca:
+    container_name: insurance-ca
+    extends:
+      file: ./ca-base.yaml
+      service: ca-base
+    image: insurance-ca
+    ports:
+    - 8054:7054
+  insurance-ca:
+    container_name: pharmacy-ca
+    extends:
+      file: ./ca-base.yaml
+      service: ca-base
+    image: pharmacy-ca
+    ports:
+    - 9054:7054

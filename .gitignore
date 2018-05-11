@@ -7,3 +7,10 @@ node_modules/
 /src
 /pkg
 /**/*.pem
+
+/cli/peers/*
+
+/insurancePeer/*
+/medicalcenterPeer/*
+/orderer/*
+/pharmacyPeer/*
