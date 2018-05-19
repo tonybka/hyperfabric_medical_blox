@@ -309,7 +309,7 @@ csr:
         O: Hyperledger
         OU: Fabric
    hosts:
-     - TonyPhung.local
+     - insurance-ca
      - localhost
    ca:
       expiry: 131400h

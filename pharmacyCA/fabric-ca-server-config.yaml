@@ -62,8 +62,8 @@ tls:
   # Enable TLS (default: false)
   enabled: false
   # TLS for the server's listening port
-  certfile:
-  keyfile:
+  certfile: /ca/tls/cert.pem
+  keyfile: /ca/tls/key.pem
   clientauth:
     type: noclientcert
     certfiles:
@@ -309,7 +309,7 @@ csr:
         O: Hyperledger
         OU: Fabric
    hosts:
-     - TonyPhung.local
+     - pharmacy-ca
      - localhost
    ca:
       expiry: 131400h

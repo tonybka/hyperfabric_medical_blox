@@ -62,8 +62,8 @@ tls:
   # Enable TLS (default: false)
   enabled: false
   # TLS for the server's listening port
-  certfile:
-  keyfile:
+  certfile: /ca/tls/cert.pem
+  keyfile: /ca/tls/key.pem
   clientauth:
     type: noclientcert
     certfiles:
@@ -80,13 +80,13 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name:
+  name: medicalcenter-org
   # Key file (is only used to import a private key into BCCSP)
-  keyfile:
+  keyfile: ./ca/key.pem
   # Certificate file (default: ca-cert.pem)
-  certfile:
+  certfile: ./ca/cert.pem
   # Chain file
-  chainfile:
+  chainfile: ./ca/cert.pem
 
 #############################################################################
 #  The gencrl REST endpoint is used to generate a CRL that contains revoked
@@ -236,12 +236,12 @@ ldap:
 # (like businessunit1, department1, businessunit2) that are specified in the configuration file,
 # which are always stored in lower case.
 #############################################################################
-affiliations:
-   org1:
-      - department1
-      - department2
-   org2:
-      - department1
+# affiliations:
+#    org1:
+#       - department1
+#       - department2
+#    org2:
+#       - department1
 
 #############################################################################
 #  Signing section
@@ -309,7 +309,7 @@ csr:
         O: Hyperledger
         OU: Fabric
    hosts:
-     - TonyPhung.local
+     - medicalcenter-ca
      - localhost
    ca:
       expiry: 131400h
