@@ -5,4 +5,3 @@ source ~/.bash_profile
 sh ./generate-certs.sh
 sh ./docker-images.sh
 docker-compose up -d
-

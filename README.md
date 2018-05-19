@@ -28,12 +28,14 @@ Project developed base on **Hyperledger Fabric** blockchain framework
 ### Create network components:
 * */configs/crypto-config.yaml*
 
-**OrdererOrgs**: Organization to manage orderer nodes
+    **OrdererOrgs**: Organization to manage orderer nodes
 
-**PeerOrgs**: Organization to manage peer nodes
+    **PeerOrgs**: Organization to manage peer nodes
 
 * Create *configtx.yaml*
+* Create Fabric-CA Server
 
+    Configuration file: http://hyperledger-fabric-ca.readthedocs.io/en/latest/serverconfig.html
 ---
 
 ## License

@@ -3,14 +3,17 @@ node_modules/
 /configtxgen
 /cryptogen
 
+
 /bin
 /src
 /pkg
+
+/**/ca
+/**/tls
+/**/cacerts
+/**/keystore
+/**/signcerts
+/**/tlscerts
 /**/*.pem
 
 /cli/peers/*
-
-/insurancePeer/*
-/medicalcenterPeer/*
-/orderer/*
-/pharmacyPeer/*

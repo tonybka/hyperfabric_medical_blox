@@ -46,7 +46,6 @@ Organizations:
   AnchorPeers:
   - Host: medicalcenter-peer
     Port: 7051
-
 - &InsuranceOrg
   Name: InsuranceOrgMSP
   ID: InsuranceOrgMSP

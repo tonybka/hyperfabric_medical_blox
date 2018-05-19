@@ -13,7 +13,7 @@ ORDERERS=$CLIPATH/ordererOrganizations
 PEERS=$CLIPATH/peerOrganizations
 
 rm -Rf $CLIPATH
-$PROJPATH/cryptogen generate --config=$PROJPATH/configs/crypto-config.yaml  --output=$CLIPATH
+$PROJPATH/cryptogen generate --config=$PROJPATH/crypto-config.yaml --output=$CLIPATH
 
 sh generate-cfgtx.sh
 

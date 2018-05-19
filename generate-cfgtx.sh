@@ -1,5 +1,5 @@
 #!/bin/sh
-CHANEL_NAME="default"
+CHANNEL_NAME="default"
 PROJPATH=$(pwd)
 CLIPATH=$PROJPATH/cli/peers
 
