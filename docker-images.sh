@@ -51,3 +51,17 @@ if [ $DOWNLOAD ]; then
     docker images | grep hyperledger*
 fi
 
+if [ $BUILD ];
+    then
+    echo '############################################################'
+    echo '#                 BUILDING CONTAINER IMAGES                #'
+    echo '############################################################'
+    docker build -t orderer:latest orderer/
+    docker build -t medicalcenter-peer:latest medicalcenterPeer/
+    docker build -t insurance-peer:latest insurancePeer/
+    docker build -t pharmacy-peer:latest pharmacyPeer/
+    docker build -t web:latest web/
+    docker build -t medicalcenter-ca:latest medicalcenterCA/
+    docker build -t insurance-ca:latest insuranceCA/
+    docker build -t pharmacy-ca:latest pharmacyCA/
+fi

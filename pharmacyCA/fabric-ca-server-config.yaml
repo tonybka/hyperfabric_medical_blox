@@ -236,12 +236,12 @@ ldap:
 # (like businessunit1, department1, businessunit2) that are specified in the configuration file,
 # which are always stored in lower case.
 #############################################################################
-affiliations:
-   org1:
-      - department1
-      - department2
-   org2:
-      - department1
+# affiliations:
+#    org1:
+#       - department1
+#       - department2
+#    org2:
+#       - department1
 
 #############################################################################
 #  Signing section

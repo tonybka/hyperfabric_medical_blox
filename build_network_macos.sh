@@ -1,5 +1,5 @@
 #!/bin/bash
-cp ./fabric_tools_mac/* .
+cp ./binary/fabric_tools_mac/* .
 export FABRIC_MEDICALBLOX_PATH=$PWD
 source ~/.bash_profile
 sh ./generate-certs.sh

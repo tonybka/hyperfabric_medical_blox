@@ -9,6 +9,7 @@ services:
     image: medicalcenter-ca
     ports:
     - 7054:7054
+
   insurance-ca:
     container_name: insurance-ca
     extends:
@@ -17,7 +18,8 @@ services:
     image: insurance-ca
     ports:
     - 8054:7054
-  insurance-ca:
+
+  pharmacy-ca:
     container_name: pharmacy-ca
     extends:
       file: ./ca-base.yaml
@@ -25,3 +27,96 @@ services:
     image: pharmacy-ca
     ports:
     - 9054:7054
+    
+  orderer0:
+    container_name: orderer0
+    image: orderer
+    environment:
+    - ORDERER_GENERAL_LOGLEVEL=debug
+    - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+    - ORDERER_GENERAL_GENESISMETHOD=file
+    - ORDERER_GENERAL_GENESISFILE=/orderer/crypto/genesis.block
+    - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+    - ORDERER_GENERAL_LOCALMSPDIR=/orderer/crypto/msp
+    - ORDERER_GENERAL_TLS_ENABLED=true
+    - ORDERER_GENERAL_TLS_PRIVATEKEY=/orderer/crypto/tls/server.key
+    - ORDERER_GENERAL_TLS_CERTIFICATE=/orderer/crypto/tls/server.crt
+    - ORDERER_GENERAL_TLS_ROOTCAS=[/orderer/crypto/tls/ca.crt]
+    working_dir: /orderer
+    command: orderer
+    ports:
+    - 7050:7050
+
+  medicalcenter-peer:
+    container_name: medicalcenter-peer
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    image: medicalcenter-peer
+    environment:
+    - CORE_PEER_ID=medicalcenter-peer
+    - CORE_PEER_ADDRESS=medicalcenter-peer:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=medicalcenter-peer:7051
+    - CORE_PEER_LOCALMSPID=MedicalCenterOrgMSP
+    ports:
+    - 7051:7051
+    - 7053:7053
+    depends_on:
+    - orderer0
+
+  insurance-peer:
+    container_name: insurance-peer
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    image: insurance-peer
+    environment:
+    - CORE_PEER_ID=insurance-peer
+    - CORE_PEER_ADDRESS=insurance-peer:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=insurance-peer:7051
+    - CORE_PEER_LOCALMSPID=InsuranceOrgMSP
+    ports:
+    - 8051:7051
+    - 8053:7053
+    depends_on:
+    - orderer0
+    - medicalcenter-peer
+
+  pharmacy-peer:
+    container_name: pharmacy-peer
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    image: pharmacy-peer
+    environment:
+    - CORE_PEER_ID=pharmacy-peer
+    - CORE_PEER_ADDRESS=pharmacy-peer:7051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=pharmacy-peer:7051
+    - CORE_PEER_LOCALMSPID=PharmacyOrgMSP
+    ports:
+    - 9051:7051
+    - 9053:7053
+    depends_on:
+    - orderer0
+    - medicalcenter-peer
+    - insurance-peer
+
+  web:
+    container_name: web
+    image: web
+    environment:
+    - PORT=3000
+    - DOCKER_SOCKET_PATH=/host/var/run/docker.sock
+    - DOCKER_CCENV_IMAGE=hyperledger/fabric-ccenv:x86_64-1.1.0
+    ports:
+    - 3000:3000
+    volumes:
+    - /var/run/:/host/var/run/
+    depends_on:
+    - orderer0
+    - medicalcenter-ca
+    - medicalcenter-peer
+    - insurance-ca
+    - insurance-peer
+    - pharmacy-ca
+    - pharmacy-peer
