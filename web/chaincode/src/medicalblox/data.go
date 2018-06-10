@@ -2,16 +2,20 @@ package main
 
 import "time"
 
+const prefixUser = "user"
+
 // HealthProfile - health profile from patient
 type HealthProfile struct {
-	PatientPersonalInfo PatientPersonalInfo `json:"patient_personal_info"`
-	HeartHealth         HeartHealth         `json:"heart_health"`
-	CreatedDate         time.Time           `json:"created_date"`
-	LastUpdateDate      time.Time           `json:"last_update_date"`
+	User           user        `json:"user"`
+	HeartHealth    HeartHealth `json:"heart_health"`
+	CreatedDate    time.Time   `json:"created_date"`
+	LastUpdateDate time.Time   `json:"last_update_date"`
 }
 
 // PatientPersonalInfo - personal information of patient
-type PatientPersonalInfo struct {
+type user struct {
+	UserName   string `json:"username"`
+	Password   string `json:"password"`
 	FirstName  string `json:"first_name"`
 	LastName   string `json:"last_name"`
 	BirthDate  int16  `json:"birth_date"`

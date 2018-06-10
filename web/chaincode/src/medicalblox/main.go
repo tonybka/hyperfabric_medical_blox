@@ -10,11 +10,27 @@ var logger = shim.NewLogger("main")
 type SmartContract struct {
 }
 
-var blockchainFunctions = map[string]func(shim.ChaincodeStubInterface, []string) pb.Response{}
+var blockchainFunctions = map[string]func(shim.ChaincodeStubInterface, []string) pb.Response{
+	// Medical center peer
+	"create_user_profile": createUserProfile,
+	"update_user_profile": updateUserProfile,
+
+	// Insurance peer
+	"claim_ls":           listClaims,
+	"claim_file":         fileClaim,
+	"claim_process":      claimProcess,
+	"query_user_profile": queryUserProfile,
+	"user_authenticate":  userAuthenticate,
+	// Pharmacy peer
+	"sell_medicine_process": sellMedicineProcess,
+}
 
 // Init callback representing the invocation of a chaincode
 func (t *SmartContract) Init(stub shim.ChaincodeStubInterface) pb.Response {
+	_, args := stub.GetFunctionAndParameters()
+	if len(args) == 1 {
 
+	}
 	return shim.Success(nil)
 }
 
