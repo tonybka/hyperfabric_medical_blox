@@ -5,6 +5,7 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
+// sell medicine to patient
 func sellMedicineProcess(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-
+	return shim.Success(nil)
 }

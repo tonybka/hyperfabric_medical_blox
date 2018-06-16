@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
@@ -10,6 +12,8 @@ var logger = shim.NewLogger("main")
 type SmartContract struct {
 }
 
+/**
+**/
 var blockchainFunctions = map[string]func(shim.ChaincodeStubInterface, []string) pb.Response{
 	// Medical center peer
 	"create_user_profile": createUserProfile,
@@ -49,4 +53,10 @@ func (t *SmartContract) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	return bcFunc(stub, args)
 }
 
-func main() {}
+func main() {
+	logger.SetLevel(shim.LogInfo)
+	err := shim.Start(new(SmartContract))
+	if err != nil {
+		fmt.Println("Error while starting chaincode: %s", err)
+	}
+}

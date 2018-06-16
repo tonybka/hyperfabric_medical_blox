@@ -16,11 +16,13 @@ func createUserProfile(stub shim.ChaincodeStubInterface, args []string) pb.Respo
 	}
 
 	user := user{}
+	// Decode JSON-encoded object and save into "user"
 	err := json.Unmarshal([]byte(args[0]), &user)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
+	// Create composite key with user name
 	key, err := stub.CreateCompositeKey(prefixUser, []string{user.UserName})
 	if err != nil {
 		return shim.Error(err.Error())
@@ -46,13 +48,32 @@ func createUserProfile(stub shim.ChaincodeStubInterface, args []string) pb.Respo
 		return shim.Success(nil)
 	}
 
+	// Decode existing user object
 	err = json.Unmarshal(userAsBytes, &user)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
+	userInfoResponse := struct {
+		UserName string `json:"username"`
+		Password string `json:"password"`
+	}{
+		UserName: user.UserName,
+		Password: user.Password,
+	}
+
+	userInfoResponseAsBytes, err := json.Marshal(userInfoResponse)
+
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	// Return user information with UserName and Password of existing user
+	return shim.Success(userInfoResponseAsBytes)
 }
 
 func updateUserProfile(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+
+	return shim.Success(nil)
 
 }
